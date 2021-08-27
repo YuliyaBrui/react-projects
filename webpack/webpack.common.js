@@ -41,11 +41,12 @@ module.exports = {
     path: path.resolve(__dirname, '..', './build'),
     filename: 'bundle.js',
     assetModuleFilename: 'assets/images/[hash][ext]',
+    publicPath: '/',
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new HtmlWebpackPlugin({
-      title: 'React_API',
+      title: 'React_router',
       template: path.resolve(__dirname, '..', './src/index.html'),
     }),
     new CopyPlugin({
