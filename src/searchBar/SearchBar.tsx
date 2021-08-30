@@ -3,10 +3,9 @@ import React, { useState } from 'react'
 import '../../assets/styles/search-bar.css'
 import { Articles } from '../articles/Articles'
 
-import instance from '../services/api'
+import instance, { API_KEY } from '../services/api'
 import { Article, GET200Articles, SortType } from '../types'
 
-const API_KEY = 'd8c57ddb550940de83ebef3b893baa3d'
 export const SearchBar: React.FC = () => {
   const [isClick, setIsClick] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -18,30 +17,36 @@ export const SearchBar: React.FC = () => {
   const [page, setPage] = useState<number>(1)
   const [perPage, setPerPage] = useState<number>(10)
   const [articles, setArticles] = useState<Article[]>([])
-  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+  const getData = async () => {
+    if (searchValue !== '') {
+      try {
+        const response: AxiosResponse<GET200Articles> = await instance.get(
+          `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`
+        )
+        setArticles(response.data.articles)
+        setTotalResults(response.data.totalResults)
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  }
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
     setIsClick(true)
-    try {
-      const response: AxiosResponse<GET200Articles> = await instance.get(
-        `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`
-      )
-      setArticles(response.data.articles)
-      setTotalResults(response.data.totalResults)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      setIsLoading(false)
-    }
+    getData()
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
   }
+
   const handleFromData = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFromData(e.target.value)
   }
-  const handleToData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToData = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setToData(e.target.value)
   }
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -61,6 +66,7 @@ export const SearchBar: React.FC = () => {
               id="input__text"
               placeholder="search news"
               type="text"
+              required
               value={searchValue}
               onChange={handleChange}
               disabled={isLoading}
@@ -84,7 +90,9 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.relevancy}
                 checked={sortBy === SortType.relevancy}
-                onChange={() => setSortBy(SortType.relevancy)}
+                onChange={() => {
+                  setSortBy(SortType.relevancy)
+                }}
               />{' '}
               relevancy
             </label>
@@ -95,7 +103,9 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.popularity}
                 checked={sortBy === SortType.popularity}
-                onChange={() => setSortBy(SortType.popularity)}
+                onChange={() => {
+                  setSortBy(SortType.popularity)
+                }}
               />{' '}
               popularity
             </label>
@@ -106,7 +116,9 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.publishedAt}
                 checked={sortBy === SortType.publishedAt}
-                onChange={() => setSortBy(SortType.publishedAt)}
+                onChange={() => {
+                  setSortBy(SortType.publishedAt)
+                }}
               />{' '}
               publication date
             </label>
@@ -121,6 +133,7 @@ export const SearchBar: React.FC = () => {
                 value={fromData}
                 onChange={handleFromData}
                 disabled={isLoading}
+                max={toData}
               />
             </label>
             <label htmlFor="to-date">
@@ -141,7 +154,7 @@ export const SearchBar: React.FC = () => {
 
       <div />
       {isClick && isLoading && (
-        <div className="loader" title="2">
+        <div className="loader">
           <svg
             version="1.1"
             id="loader-1"

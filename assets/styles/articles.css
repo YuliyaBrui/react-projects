@@ -1,6 +1,11 @@
-a {
+a,
+li {
   text-decoration: none;
 }
+ul {
+  padding: 0;
+}
+
 main {
   margin: 0 auto;
 
@@ -57,7 +62,6 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-
   transition: all 0.5s;
 }
 .card__img:hover {
@@ -129,8 +133,9 @@ main {
   justify-content: space-between;
   align-items: center;
 }
-#perPage,
-#page {
+
+#input-perPage,
+#input-page {
   width: 40px;
   border: 1px solid grey;
   border-radius: 5px;
@@ -142,11 +147,19 @@ main {
 }
 .container-pagination label {
   color: #000000;
+  width: 140px;
+}
+.wrapper_count-pages {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .total-pages {
   color: rgb(165, 32, 32);
+  width: 50px;
 }
-@media (max-width: 500px) {
+@media (max-width: 520px) {
   .container-pagination {
     width: 80vw;
   }

@@ -1,36 +1,62 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, NavLink, useLocation } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { DetailsArticle } from './articles/DetailsArticle'
 import { NotFound } from './components/NotFound'
 import { PageAbout } from './components/pageAbout'
 import { SearchBar } from './searchBar/SearchBar'
+import '../assets/styles/header.css'
 
-export function App() {
+const Content = () => {
+  const location = useLocation()
   return (
-    <Router>
-      <div className="App">
-        <header>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <section>
+    <section className="routes-container">
+      <TransitionGroup>
+        <CSSTransition key={location.key} timeout={300} classNames="page">
           <Switch>
             <Route exact path="/" component={SearchBar} />
-            <Route exact path="/about/" component={PageAbout} />
-            <Route path="/details/:id">
-              <PageAbout />
-            </Route>
-            <Route path="/*" component={NotFound} />
+
+            <Route exact path="/about" component={PageAbout} />
+
+            <Route exact path="/details/:id" component={DetailsArticle} />
+            <Route path="*" component={NotFound} />
           </Switch>
-        </section>
-      </div>
-    </Router>
+        </CSSTransition>
+      </TransitionGroup>
+    </section>
+  )
+}
+export function App() {
+  return (
+    <div className="App">
+      <header>
+        <img className="logo" src="../../img/logo.png" alt="logo" />
+        <nav className="nav">
+          <ul className="nav_list">
+            <li>
+              <NavLink
+                exact
+                className="non-active"
+                activeStyle={{ color: 'rgb(165, 32, 32)' }}
+                to="/"
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                exact
+                className="non-active"
+                activeStyle={{ color: 'rgb(165, 32, 32)' }}
+                to="/about"
+              >
+                About
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <Content />
+    </div>
   )
 }

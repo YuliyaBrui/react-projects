@@ -1,5 +1,7 @@
 import '../../assets/styles/articles.css'
 import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import { Article } from '../types'
 
 interface ArticleProps {
@@ -18,9 +20,26 @@ export const Articles: React.FC<ArticleProps> = ({
   onChangePage,
   onChangePerPage,
 }) => {
+  /* const isTitle = '';
+  let setArticle: Article[] = [];
+  const getData = async (isTitle:string) => {
+
+    try {
+      const response: AxiosResponse<GET200Articles> = await instance.get(
+        `v2/everything?qlnTitle=${isTitle}&apiKey=${API_KEY}`,
+      );
+      setArticle = response.data.articles;
+
+    } catch (e) {
+      console.error(e);
+    } finally {
+
+    }
+  }; */
   const [articlePage, setArticlePage] = useState<number | string>(1)
   const [articlePerPage, setArticlePerPage] = useState<number>(1)
   const totalPages: number = Math.ceil(totalResults / articlePerPage)
+
   useEffect(() => {
     setArticlePage(page)
     setArticlePerPage(perPage)
@@ -54,9 +73,9 @@ export const Articles: React.FC<ArticleProps> = ({
       {articles.length ? (
         <div>
           <div className="container-pagination">
-            <label htmlFor="perPage">
+            <label htmlFor="input-perPage">
               <input
-                id="perPage"
+                id="input-perPage"
                 type="number"
                 value={articlePerPage}
                 onChange={handleChangePerPage}
@@ -66,60 +85,65 @@ export const Articles: React.FC<ArticleProps> = ({
               />
               articles
             </label>
-            <label htmlFor="page">
-              <input
-                id="page"
-                type="number"
-                value={articlePage}
-                onChange={handleChangePage}
-                min="1"
-                max={totalPages}
-                step="1"
-              />
-              page from{' '}
-              <span className="total-pages">
-                {articlePerPage > 0 ? totalPages : ''}
-              </span>
-            </label>
+            <div className="wrapper_count-pages">
+              <label htmlFor="input-page">
+                <input
+                  id="input-page"
+                  type="number"
+                  value={articlePage}
+                  onChange={handleChangePage}
+                  min="1"
+                  max={totalPages}
+                  step="1"
+                />
+                page from{' '}
+              </label>
+              <p className="total-pages">
+                {articlePerPage > 0 ? totalPages : ' '}
+              </p>
+            </div>
           </div>
-          <div className="articles-field">
-            {articles.map((article) => (
-              <div className="card-container">
+          <ul className="articles-field">
+            {articles.map((article, index) => (
+              <li
+                className="card-container"
+                key={article.title + Math.random()}
+              >
                 <div className="card">
-                  <div className="image-wrapper">
-                    <div
-                      className="card__img"
-                      style={
-                        article.urlToImage
-                          ? { backgroundImage: `url(${article.urlToImage})` }
-                          : {
-                              backgroundImage: 'url(./img/unknown_image.jpg)',
-                            }
-                      }
-                    />
-                  </div>
-                  <div className="card_info">
-                    <div className="card__description">
-                      <h2 className="title">{article.title}</h2>
-                      <p className="info">
-                        <span className="date">
-                          {article.publishedAt.split('T')[0]}
-                        </span>
-                        <span> / </span>
-                        <a href="http://localhost:8080" className="author">
-                          {article.author}
-                        </a>
-                      </p>
-                      <p className="summary">{article.description}</p>
+                  <Link to={`/details/${index}`}>
+                    <div className="image-wrapper">
+                      <div
+                        className="card__img"
+                        style={
+                          article.urlToImage
+                            ? { backgroundImage: `url(${article.urlToImage})` }
+                            : {
+                                backgroundImage: 'url(./img/unknown_image.jpg)',
+                              }
+                        }
+                      />
                     </div>
-                  </div>
+                    <div className="card_info">
+                      <div className="card__description">
+                        <h2 className="title">{article.title}</h2>
+                        <p className="info">
+                          <span className="date">
+                            {article.publishedAt.split('T')[0]}
+                          </span>
+                          <span> / </span>
+                          <span className="author">{article.author}</span>
+                        </p>
+                        <p className="summary">{article.description}</p>
+                      </div>
+                    </div>
+                  </Link>
                   <a className="article-link" href={article.url}>
-                    continue reading...
+                    link to article
                   </a>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       ) : (
         <span className="no-result">

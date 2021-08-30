@@ -59,6 +59,7 @@ input {
 .container-radios,
 .container-data {
   width: 45%;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,6 +79,28 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.input__radio {
+  visibility: hidden;
+  margin: 5px;
+}
+.input__radio:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 15px;
+  position: relative;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+  background-color: inherit;
+
+  border: 2px solid #d1d3d1;
+}
+
+.input__radio:checked:after {
+  background-color: rgb(165, 32, 32);
+  border: 2px solid rgb(165, 32, 32);
 }
 @media (max-width: 920px) {
   .search-attribute {
