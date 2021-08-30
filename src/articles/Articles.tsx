@@ -84,7 +84,10 @@ export const Articles: React.FC<ArticleProps> = ({
           </div>
           <div className="articles-field">
             {articles.map((article) => (
-              <div className="card-container">
+              <div
+                className="card-container"
+                key={article.title + Math.random()}
+              >
                 <div className="card">
                   <div className="image-wrapper">
                     <div
