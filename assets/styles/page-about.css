@@ -1,0 +1,12 @@
+.page-about {
+  margin: 0 auto;
+  width: 80vw;
+  height: 100vh;
+  font-family: 'Oswald', sans-serif;
+}
+li {
+  list-style-type: none;
+}
+h2 {
+  color: rgb(165, 32, 32);
+}

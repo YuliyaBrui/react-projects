@@ -1,7 +1,8 @@
 import React from 'react'
+import '../../assets/styles/page-about.css'
 
 export const PageAbout = () => (
-  <article className="PageAbout">
+  <article className="page-about">
     <h2>How do I search for information?</h2>
     <span>
       When it comes to searching for information, a little bit of planning and

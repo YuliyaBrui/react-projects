@@ -20,30 +20,16 @@ export const Articles: React.FC<ArticleProps> = ({
   onChangePage,
   onChangePerPage,
 }) => {
-  /* const isTitle = '';
-  let setArticle: Article[] = [];
-  const getData = async (isTitle:string) => {
-
-    try {
-      const response: AxiosResponse<GET200Articles> = await instance.get(
-        `v2/everything?qlnTitle=${isTitle}&apiKey=${API_KEY}`,
-      );
-      setArticle = response.data.articles;
-
-    } catch (e) {
-      console.error(e);
-    } finally {
-
-    }
-  }; */
   const [articlePage, setArticlePage] = useState<number | string>(1)
   const [articlePerPage, setArticlePerPage] = useState<number>(1)
+
   const totalPages: number = Math.ceil(totalResults / articlePerPage)
 
   useEffect(() => {
     setArticlePage(page)
     setArticlePerPage(perPage)
   }, [page, perPage])
+
   const handleChangePage = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     const regexp = /^[0-9]+$/
@@ -103,14 +89,14 @@ export const Articles: React.FC<ArticleProps> = ({
               </p>
             </div>
           </div>
-          <ul className="articles-field">
-            {articles.map((article, index) => (
-              <li
+          <div className="articles-field">
+            {articles.map((article) => (
+              <div
                 className="card-container"
                 key={article.title + Math.random()}
               >
                 <div className="card">
-                  <Link to={`/details/${index}`}>
+                  <Link to={`/details/${article.title.split(' ').join('%20')}`}>
                     <div className="image-wrapper">
                       <div
                         className="card__img"
@@ -141,9 +127,9 @@ export const Articles: React.FC<ArticleProps> = ({
                     link to article
                   </a>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       ) : (
         <span className="no-result">

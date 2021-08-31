@@ -5,6 +5,7 @@ export interface Article {
   description: string
   url: string
   urlToImage: string
+  content?: string
 }
 export interface GET200Articles {
   articles: Article[]

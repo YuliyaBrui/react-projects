@@ -31,18 +31,19 @@ header {
 }
 .page-enter {
   opacity: 0;
-  position: absolute;
+
   z-index: 1;
 }
 
-.page-enter.page-enter-active {
+.page-enter-active {
   opacity: 1;
   transition: opacity 400ms ease-in;
 }
 .page-exit {
   opacity: 1;
 }
-.page-exit.page-exit-active {
+.page-exit-active {
   opacity: 0;
-  transition: opacity 400ms ease-in;
+
+  transition: opacity 200ms ease-in;
 }

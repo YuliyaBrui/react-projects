@@ -2,28 +2,26 @@ import React from 'react'
 import { Switch, Route, NavLink, useLocation } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { DetailsArticle } from './articles/DetailsArticle'
-import { NotFound } from './components/NotFound'
-import { PageAbout } from './components/pageAbout'
+import { NotFound } from './pages/NotFound'
+import { PageAbout } from './pages/PageAbout'
 import { SearchBar } from './searchBar/SearchBar'
 import '../assets/styles/header.css'
 
 const Content = () => {
   const location = useLocation()
   return (
-    <section className="routes-container">
-      <TransitionGroup>
-        <CSSTransition key={location.key} timeout={300} classNames="page">
-          <Switch>
-            <Route exact path="/" component={SearchBar} />
+    <TransitionGroup>
+      <CSSTransition key={location.key} timeout={300} classNames="page">
+        <Switch>
+          <Route exact path="/" component={SearchBar} />
 
-            <Route exact path="/about" component={PageAbout} />
+          <Route exact path="/about" component={PageAbout} />
 
-            <Route exact path="/details/:id" component={DetailsArticle} />
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </CSSTransition>
-      </TransitionGroup>
-    </section>
+          <Route exact path="/details/:qInTitle" component={DetailsArticle} />
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </CSSTransition>
+    </TransitionGroup>
   )
 }
 export function App() {
@@ -56,7 +54,9 @@ export function App() {
           </ul>
         </nav>
       </header>
-      <Content />
+      <section className="routes-container">
+        <Content />
+      </section>
     </div>
   )
 }
