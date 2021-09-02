@@ -46,7 +46,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new HtmlWebpackPlugin({
-      title: 'React_router',
+      title: 'React_redux',
       template: path.resolve(__dirname, '..', './src/index.html'),
     }),
     new CopyPlugin({

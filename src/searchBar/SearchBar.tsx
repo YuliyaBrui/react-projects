@@ -1,12 +1,16 @@
 import { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import '../../assets/styles/search-bar.css'
 import { Articles } from '../articles/Articles'
+import { articlesTypeSelector } from '../redux/hooks/articlesTypeSelector'
 
 import instance, { API_KEY } from '../services/api'
 import { Article, GET200Articles, SortType } from '../types'
 
 export const SearchBar: React.FC = () => {
+  const state = articlesTypeSelector((state) => state.articles)
+  console.log(state.articles)
   const [isClick, setIsClick] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [searchValue, setSearchValue] = useState('')

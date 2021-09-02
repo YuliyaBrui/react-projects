@@ -1,5 +1,5 @@
 {
-  "name": "react-components",
+  "name": "react_redux",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev",
     "build": "npm run lint && npm run format && webpack --config webpack/webpack.config.js --env env=prod",
@@ -12,12 +12,16 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.15.3",
+    "@reduxjs/toolkit": "^1.6.1",
     "@types/react-transition-group": "^4.4.2",
     "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -27,6 +31,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@types/react": "^17.0.16",
     "@types/react-dom": "^17.0.9",
+    "@types/react-redux": "^7.1.18",
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
@@ -46,6 +51,7 @@
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.2.0",
     "prettier": "^2.3.2",
+    "redux-devtools-extension": "^2.13.9",
     "style-loader": "^3.2.1",
     "svg-url-loader": "^7.1.1",
     "typescript": "^4.3.5",

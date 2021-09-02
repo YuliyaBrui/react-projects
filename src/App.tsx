@@ -6,7 +6,8 @@ import { NotFound } from './pages/NotFound'
 import { PageAbout } from './pages/PageAbout'
 import { SearchBar } from './searchBar/SearchBar'
 import '../assets/styles/header.css'
-
+import { connect } from 'react-redux'
+import { store } from './store'
 const Content = () => {
   const location = useLocation()
   return (
@@ -14,9 +15,7 @@ const Content = () => {
       <CSSTransition key={location.key} timeout={300} classNames="page">
         <Switch>
           <Route exact path="/" component={SearchBar} />
-
           <Route exact path="/about" component={PageAbout} />
-
           <Route exact path="/details/:qInTitle" component={DetailsArticle} />
           <Route path="*" component={NotFound} />
         </Switch>
