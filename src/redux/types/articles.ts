@@ -17,8 +17,8 @@ interface FetchArticlesErrorAction {
   payload: { error: string }
 }
 export interface ArticleState {
-  articles: Article[] | undefined
-  totalResults?: number
+  articles: Article[]
+  totalResults: number | undefined
   loading: boolean
   error: null | string | undefined
 }

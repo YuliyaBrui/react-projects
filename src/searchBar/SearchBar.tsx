@@ -1,46 +1,36 @@
-import { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import '../../assets/styles/search-bar.css'
 import { Articles } from '../articles/Articles'
-import { articlesTypeSelector } from '../redux/hooks/articlesTypeSelector'
+import { fetchArticles } from '../redux/actions/articles'
+import { useTypeSelector } from '../redux/hooks/useTypeSelector'
+import { useAction } from '../redux/hooks/useAction'
 
-import instance, { API_KEY } from '../services/api'
-import { Article, GET200Articles, SortType } from '../types'
+import { SortType } from '../types'
 
 export const SearchBar: React.FC = () => {
-  const state = articlesTypeSelector((state) => state.articles)
-  console.log(state.articles)
+  const state = useTypeSelector((state) => state.articles)
+  const { fetchArticles } = useAction()
+  // const dispatch = useDispatch()
   const [isClick, setIsClick] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState<string>('')
   const [fromData, setFromData] = useState('')
   const [toData, setToData] = useState('')
   const [sortBy, setSortBy] = useState<SortType>(SortType.popularity)
-  const [totalResults, setTotalResults] = useState<number>(1)
   const [page, setPage] = useState<number>(1)
   const [perPage, setPerPage] = useState<number>(10)
-  const [articles, setArticles] = useState<Article[]>([])
   const getData = async () => {
-    if (searchValue !== '') {
-      try {
-        const response: AxiosResponse<GET200Articles> = await instance.get(
-          `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`
-        )
-        setArticles(response.data.articles)
-        setTotalResults(response.data.totalResults)
-      } catch (e) {
-        console.error(e)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+    console.log(searchValue, sortBy, fromData, toData, page, perPage)
+
+    fetchArticles(searchValue, sortBy, fromData, toData, page, perPage)
   }
+
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoading(true)
+
     setIsClick(true)
     getData()
+    console.log(state.articles)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,13 +63,13 @@ export const SearchBar: React.FC = () => {
               required
               value={searchValue}
               onChange={handleChange}
-              disabled={isLoading}
+              disabled={state.loading}
             />
           </label>
           <button
             className="button_submit"
             type="submit"
-            disabled={isLoading}
+            disabled={state.loading}
             onClick={handleClick}
           >
             search
@@ -136,7 +126,7 @@ export const SearchBar: React.FC = () => {
                 type="date"
                 value={fromData}
                 onChange={handleFromData}
-                disabled={isLoading}
+                disabled={state.loading}
                 max={toData}
               />
             </label>
@@ -148,7 +138,7 @@ export const SearchBar: React.FC = () => {
                 type="date"
                 value={toData}
                 onChange={handleToData}
-                disabled={isLoading}
+                disabled={state.loading}
                 min={fromData}
               />
             </label>
@@ -157,7 +147,7 @@ export const SearchBar: React.FC = () => {
       </form>
 
       <div />
-      {isClick && isLoading && (
+      {isClick && state.loading && (
         <div className="loader">
           <svg
             version="1.1"
@@ -193,12 +183,12 @@ export const SearchBar: React.FC = () => {
           </svg>
         </div>
       )}
-      {isClick && !isLoading && (
+      {isClick && !state.loading && (
         <Articles
-          articles={articles}
+          articles={state.articles}
           page={page}
           perPage={perPage}
-          totalResults={totalResults}
+          totalResults={state?.totalResults}
           onChangePerPage={(pageFromInput: number) => setPerPage(pageFromInput)}
           onChangePage={(pageFromInput: number) => setPage(pageFromInput)}
         />

@@ -1,33 +1,21 @@
-import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import instance, { API_KEY } from '../services/api'
-import { Article, GET200Articles } from '../types'
-import '../../assets/styles/page-details.css'
+import React, { useEffect } from 'react'
 
+import { Article } from '../types'
+import '../../assets/styles/page-details.css'
+import { useTypeSelector } from '../redux/hooks/useTypeSelector'
+import { useAction } from '../redux/hooks/useAction'
+import { useParams } from 'react-router-dom'
 type Params = {
   qInTitle: string
 }
-
 export const DetailsArticle: React.FC<Article> = () => {
   const { qInTitle } = useParams<Params>()
-  const [isArticle, setArticle] = useState<Article>()
-
-  async function fetchDetails() {
-    try {
-      const response: AxiosResponse<GET200Articles> = await instance.get(
-        `v2/everything?qInTitle=${qInTitle}&apiKey=${API_KEY}`
-      )
-      setArticle(response.data.articles[0])
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
+  const state = useTypeSelector((state) => state.details)
+  console.log(state.details)
+  const { fetchDetails } = useAction()
   useEffect(() => {
-    fetchDetails()
+    fetchDetails(qInTitle)
   }, [])
-
   return (
     <main>
       <div className="article-details">
@@ -35,7 +23,7 @@ export const DetailsArticle: React.FC<Article> = () => {
 
         <p className="wrapper">
           <span className="key-word">Title:</span>
-          <span>{isArticle?.title}</span>
+          <span>{state.details.title}</span>
         </p>
         <section className="wrapper">
           <span className="key-word">Image:</span>
@@ -44,40 +32,40 @@ export const DetailsArticle: React.FC<Article> = () => {
               <div
                 className="card__img"
                 style={
-                  isArticle?.urlToImage
-                    ? { backgroundImage: `url(${isArticle?.urlToImage})` }
+                  state.details.urlToImage
+                    ? { backgroundImage: `url(${state.details.urlToImage})` }
                     : {
                         backgroundImage: 'url(../../img/unknown_image.jpg)',
                       }
                 }
               />
             </div>
-            <a className="link" href={isArticle?.urlToImage}>
-              {isArticle?.urlToImage}
+            <a className="link" href={state.details.urlToImage}>
+              {state.details.urlToImage}
             </a>
           </div>
         </section>
         <p className="wrapper">
           <span className="key-word">Published at:</span>
-          <span>{isArticle?.publishedAt.split('T')[0]}</span>
+          <span>{state.details.publishedAt.split('T')[0]}</span>
         </p>
         <p className="wrapper">
           <span className="key-word">Author:</span>
-          <span>{isArticle?.author}</span>
+          <span>{state.details.author}</span>
         </p>
         <div className="wrapper">
           <span className="key-word">Description:</span>
-          <p>{isArticle?.description}</p>
+          <p>{state.details.description}</p>
         </div>
 
         <div className="wrapper">
           <span className="key-word">Content:</span>
-          <p>{isArticle?.content}</p>
+          <p>{state.details.content}</p>
         </div>
         <p className="wrapper">
           <span className="key-word">Link to article:</span>
-          <a className="link" href={isArticle?.url}>
-            {isArticle?.url}
+          <a className="link" href={state.details.url}>
+            {state.details.url}
           </a>
         </p>
       </div>
