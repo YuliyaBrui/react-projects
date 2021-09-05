@@ -1,14 +1,14 @@
-import '../../assets/styles/articles.css'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Article } from '../types'
+import '../../assets/styles/articles.css';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Article } from '../types';
 
 interface ArticleProps {
-  page: number
-  perPage: number
-  totalResults: number
-  articles: Article[]
-  onChangePage: (pageFromInput: number) => void
-  onChangePerPage: (pageFromInput: number) => void
+  page: number;
+  perPage: number;
+  totalResults: number;
+  articles: Article[];
+  onChangePage: (pageFromInput: number) => void;
+  onChangePerPage: (pageFromInput: number) => void;
 }
 export const Articles: React.FC<ArticleProps> = ({
   articles,
@@ -18,37 +18,37 @@ export const Articles: React.FC<ArticleProps> = ({
   onChangePage,
   onChangePerPage,
 }) => {
-  const [articlePage, setArticlePage] = useState<number | string>(1)
-  const [articlePerPage, setArticlePerPage] = useState<number>(1)
-  const totalPages: number = Math.ceil(totalResults / articlePerPage)
+  const [articlePage, setArticlePage] = useState<number | string>(1);
+  const [articlePerPage, setArticlePerPage] = useState<number>(1);
+  const totalPages: number = Math.ceil(totalResults / articlePerPage);
   useEffect(() => {
-    setArticlePage(page)
-    setArticlePerPage(perPage)
-  }, [page, perPage])
+    setArticlePage(page);
+    setArticlePerPage(perPage);
+  }, [page, perPage]);
   const handleChangePage = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    const regexp = /^[0-9]+$/
-    const checkValue = value.match(regexp)
+    const { value } = event.target;
+    const regexp = /^[0-9]+$/;
+    const checkValue = value.match(regexp);
     if (checkValue) {
-      const newValue = +checkValue[0]
-      onChangePage(newValue)
-      setArticlePage(newValue)
+      const newValue = +checkValue[0];
+      onChangePage(newValue);
+      setArticlePage(newValue);
     } else {
-      setArticlePage(0)
+      setArticlePage(0);
     }
-  }
+  };
   const handleChangePerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    const regexp = /^[0-9]+$/
-    const checkValue = value.match(regexp)
+    const { value } = event.target;
+    const regexp = /^[0-9]+$/;
+    const checkValue = value.match(regexp);
     if (checkValue) {
-      const newValue = +checkValue[0]
-      onChangePerPage(newValue)
-      setArticlePerPage(newValue)
+      const newValue = +checkValue[0];
+      onChangePerPage(newValue);
+      setArticlePerPage(newValue);
     } else {
-      setArticlePerPage(0)
+      setArticlePerPage(0);
     }
-  }
+  };
   return (
     <main>
       {articles.length ? (
@@ -130,5 +130,5 @@ export const Articles: React.FC<ArticleProps> = ({
         </span>
       )}
     </main>
-  )
-}
+  );
+};
