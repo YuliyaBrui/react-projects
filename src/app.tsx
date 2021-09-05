@@ -1,5 +1,5 @@
-import { CardsField } from './cards/cards'
-import { SearchBar } from './searchBar/search-bar'
+import { CardsField } from './cards/cards';
+import { SearchBar } from './searchBar/search-bar';
 
 export function App() {
   return (
@@ -7,5 +7,5 @@ export function App() {
       <SearchBar />
       <CardsField />
     </div>
-  )
+  );
 }

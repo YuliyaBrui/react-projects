@@ -1,17 +1,17 @@
-import '../../assets/styles/card.css'
-import { DescriptionCard } from './card-description'
-import { RatingCard } from './card-rating'
+import '../../assets/styles/card.css';
+import { DescriptionCard } from './card-description';
+import { RatingCard } from './card-rating';
 
 export interface informCards {
-  id: number
-  title: string
-  author: string
-  date: string
-  body: string
-  image: string
-  like: number
-  review: number
-  comments: number
+  id: number;
+  title: string;
+  author: string;
+  date: string;
+  body: string;
+  image: string;
+  like: number;
+  review: number;
+  comments: number;
 }
 export const cards: informCards[] = [
   {
@@ -105,7 +105,7 @@ export const cards: informCards[] = [
     review: 23256,
     comments: 792,
   },
-]
+];
 export const CardsField = () => (
   <div className="cards-field">
     {cards.map((card) => (
@@ -132,4 +132,4 @@ export const CardsField = () => (
       </div>
     ))}
   </div>
-)
+);

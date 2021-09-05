@@ -1,7 +1,7 @@
-type Placeholder = { placeholder: string }
+type Placeholder = { placeholder: string };
 
 function SearchInput({ placeholder }: Placeholder) {
-  return <input placeholder={placeholder} type="search" />
+  return <input placeholder={placeholder} type="search" />;
 }
 
-export default SearchInput
+export default SearchInput;

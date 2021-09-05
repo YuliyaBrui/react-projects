@@ -1,7 +1,6 @@
-import '../../assets/styles/search-bar.css'
-import { SearchButton } from './search-button'
-
-import SearchInput from './search-input'
+import '../../assets/styles/search-bar.css';
+import { SearchButton } from './search-button';
+import SearchInput from './search-input';
 
 export const SearchBar = () => (
   <div className="container">
@@ -17,4 +16,4 @@ export const SearchBar = () => (
       <SearchButton textContent="search" />
     </form>
   </div>
-)
+);

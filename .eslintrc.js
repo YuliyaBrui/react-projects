@@ -37,6 +37,7 @@ module.exports = {
     'eslint-config-airbnb',
   ],
   rules: {
+    semi: [2, 'always'],
     'no-console': 'warn',
     'no-alert': 'warn',
     'no-unused-vars': 'off',

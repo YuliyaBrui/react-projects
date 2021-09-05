@@ -1,7 +1,7 @@
 interface Rating {
-  like: number
-  review: number
-  comments: number
+  like: number;
+  review: number;
+  comments: number;
 }
 export function RatingCard({ like, review, comments }: Rating) {
   return (
@@ -13,5 +13,5 @@ export function RatingCard({ like, review, comments }: Rating) {
       <img className="rating_icon" src="./img/icons/chat.png" alt="comments" />
       <span className="rating_data">{comments}</span>
     </div>
-  )
+  );
 }

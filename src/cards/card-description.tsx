@@ -1,8 +1,8 @@
 interface Description {
-  title: string
-  date: string
-  author: string
-  body: string
+  title: string;
+  date: string;
+  author: string;
+  body: string;
 }
 export function DescriptionCard({ title, date, author, body }: Description) {
   return (
@@ -20,5 +20,5 @@ export function DescriptionCard({ title, date, author, body }: Description) {
         continue reading...
       </a>
     </div>
-  )
+  );
 }
