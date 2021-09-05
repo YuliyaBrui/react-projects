@@ -1,38 +1,34 @@
-import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import instance, { API_KEY } from '../services/api'
-import { Article, GET200Articles } from '../types'
-import '../../assets/styles/page-details.css'
+import { AxiosResponse } from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import instance, { API_KEY } from '../services/api';
+import { Article, GET200Articles } from '../types';
+import '../../assets/styles/page-details.css';
 
 type Params = {
-  qInTitle: string
-}
+  qInTitle: string;
+};
 
 export const DetailsArticle: React.FC<Article> = () => {
-  const { qInTitle } = useParams<Params>()
-  const [isArticle, setArticle] = useState<Article>()
-
+  const { qInTitle } = useParams<Params>();
+  const [isArticle, setArticle] = useState<Article>();
   async function fetchDetails() {
     try {
       const response: AxiosResponse<GET200Articles> = await instance.get(
-        `v2/everything?qInTitle=${qInTitle}&apiKey=${API_KEY}`
-      )
-      setArticle(response.data.articles[0])
+        `v2/everything?qInTitle=${qInTitle}&apiKey=${API_KEY}`,
+      );
+      setArticle(response.data.articles[0]);
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   }
-
   useEffect(() => {
-    fetchDetails()
-  }, [])
-
+    fetchDetails();
+  }, []);
   return (
     <main>
       <div className="article-details">
         <h2>Article Details</h2>
-
         <p className="wrapper">
           <span className="key-word">Title:</span>
           <span>{isArticle?.title}</span>
@@ -47,8 +43,8 @@ export const DetailsArticle: React.FC<Article> = () => {
                   isArticle?.urlToImage
                     ? { backgroundImage: `url(${isArticle?.urlToImage})` }
                     : {
-                        backgroundImage: 'url(../../img/unknown_image.jpg)',
-                      }
+                      backgroundImage: 'url(../../img/unknown_image.jpg)',
+                    }
                 }
               />
             </div>
@@ -69,7 +65,6 @@ export const DetailsArticle: React.FC<Article> = () => {
           <span className="key-word">Description:</span>
           <p>{isArticle?.description}</p>
         </div>
-
         <div className="wrapper">
           <span className="key-word">Content:</span>
           <p>{isArticle?.content}</p>
@@ -82,5 +77,5 @@ export const DetailsArticle: React.FC<Article> = () => {
         </p>
       </div>
     </main>
-  )
-}
+  );
+};

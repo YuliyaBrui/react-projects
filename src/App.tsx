@@ -1,14 +1,16 @@
-import React from 'react'
-import { Switch, Route, NavLink, useLocation } from 'react-router-dom'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { DetailsArticle } from './articles/DetailsArticle'
-import { NotFound } from './pages/NotFound'
-import { PageAbout } from './pages/PageAbout'
-import { SearchBar } from './searchBar/SearchBar'
-import '../assets/styles/header.css'
+import React from 'react';
+import {
+  Switch, Route, NavLink, useLocation,
+} from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { DetailsArticle } from './articles/DetailsArticle';
+import { NotFound } from './pages/NotFound';
+import { PageAbout } from './pages/PageAbout';
+import { SearchBar } from './searchBar/SearchBar';
+import '../assets/styles/header.css';
 
 const Content = () => {
-  const location = useLocation()
+  const location = useLocation();
   return (
     <TransitionGroup>
       <CSSTransition key={location.key} timeout={300} classNames="page">
@@ -22,8 +24,8 @@ const Content = () => {
         </Switch>
       </CSSTransition>
     </TransitionGroup>
-  )
-}
+  );
+};
 export function App() {
   return (
     <div className="App">
@@ -58,5 +60,5 @@ export function App() {
         <Content />
       </section>
     </div>
-  )
+  );
 }

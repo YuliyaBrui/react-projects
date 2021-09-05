@@ -1,57 +1,55 @@
-import { AxiosResponse } from 'axios'
-import React, { useState } from 'react'
-import '../../assets/styles/search-bar.css'
-import { Articles } from '../articles/Articles'
+import { AxiosResponse } from 'axios';
+import React, { useState } from 'react';
+import '../../assets/styles/search-bar.css';
+import { Articles } from '../articles/Articles';
 
-import instance, { API_KEY } from '../services/api'
-import { Article, GET200Articles, SortType } from '../types'
+import instance, { API_KEY } from '../services/api';
+import { Article, GET200Articles, SortType } from '../types';
 
 export const SearchBar: React.FC = () => {
-  const [isClick, setIsClick] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [searchValue, setSearchValue] = useState('')
-  const [fromData, setFromData] = useState('')
-  const [toData, setToData] = useState('')
-  const [sortBy, setSortBy] = useState<SortType>(SortType.popularity)
-  const [totalResults, setTotalResults] = useState<number>(1)
-  const [page, setPage] = useState<number>(1)
-  const [perPage, setPerPage] = useState<number>(10)
-  const [articles, setArticles] = useState<Article[]>([])
+  const [isClick, setIsClick] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [fromData, setFromData] = useState('');
+  const [toData, setToData] = useState('');
+  const [sortBy, setSortBy] = useState<SortType>(SortType.popularity);
+  const [totalResults, setTotalResults] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
+  const [perPage, setPerPage] = useState<number>(10);
+  const [articles, setArticles] = useState<Article[]>([]);
   const getData = async () => {
     if (searchValue !== '') {
       try {
         const response: AxiosResponse<GET200Articles> = await instance.get(
-          `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`
-        )
-        setArticles(response.data.articles)
-        setTotalResults(response.data.totalResults)
+          `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`,
+        );
+        setArticles(response.data.articles);
+        setTotalResults(response.data.totalResults);
       } catch (e) {
-        console.error(e)
+        console.error(e);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
-  }
+  };
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoading(true)
-    setIsClick(true)
-    getData()
-  }
-
+    event.preventDefault();
+    setIsLoading(true);
+    setIsClick(true);
+    getData();
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
-  }
-
+    setSearchValue(e.target.value);
+  };
   const handleFromData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFromData(e.target.value)
-  }
+    setFromData(e.target.value);
+  };
   const handleToData = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setToData(e.target.value)
-  }
+    setToData(e.target.value);
+  };
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setIsClick(false)
-  }
+    setIsClick(false);
+  };
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit}>
@@ -91,9 +89,10 @@ export const SearchBar: React.FC = () => {
                 value={SortType.relevancy}
                 checked={sortBy === SortType.relevancy}
                 onChange={() => {
-                  setSortBy(SortType.relevancy)
+                  setSortBy(SortType.relevancy);
                 }}
-              />{' '}
+              />
+              {' '}
               relevancy
             </label>
             <label htmlFor="second_radio">
@@ -104,9 +103,10 @@ export const SearchBar: React.FC = () => {
                 value={SortType.popularity}
                 checked={sortBy === SortType.popularity}
                 onChange={() => {
-                  setSortBy(SortType.popularity)
+                  setSortBy(SortType.popularity);
                 }}
-              />{' '}
+              />
+              {' '}
               popularity
             </label>
             <label htmlFor="third_radio">
@@ -117,9 +117,10 @@ export const SearchBar: React.FC = () => {
                 value={SortType.publishedAt}
                 checked={sortBy === SortType.publishedAt}
                 onChange={() => {
-                  setSortBy(SortType.publishedAt)
+                  setSortBy(SortType.publishedAt);
                 }}
-              />{' '}
+              />
+              {' '}
               publication date
             </label>
           </div>
@@ -151,8 +152,6 @@ export const SearchBar: React.FC = () => {
           </div>
         </div>
       </form>
-
-      <div />
       {isClick && isLoading && (
         <div className="loader">
           <svg
@@ -200,5 +199,5 @@ export const SearchBar: React.FC = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};

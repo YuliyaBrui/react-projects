@@ -27,6 +27,7 @@ module.exports = {
     },
   },
   extends: [
+    'airbnb',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
@@ -37,6 +38,8 @@ module.exports = {
     'eslint-config-airbnb',
   ],
   rules: {
+    semi: ['error', 'always'],
+    'padded-blocks': ['error', 'never'],
     'no-console': 'warn',
     'no-alert': 'warn',
     'no-unused-vars': 'off',
@@ -67,4 +70,4 @@ module.exports = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
   },
-}
+};

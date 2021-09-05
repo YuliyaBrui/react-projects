@@ -1,5 +1,5 @@
-import React from 'react'
-import '../../assets/styles/not-found.css'
+import React from 'react';
+import '../../assets/styles/not-found.css';
 
 export const NotFound = () => (
   <div className="page-404">
@@ -9,4 +9,4 @@ export const NotFound = () => (
     </div>
     <img src="../../assets/images/404.png" alt="404" />
   </div>
-)
+);
