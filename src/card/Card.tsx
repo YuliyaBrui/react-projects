@@ -1,9 +1,9 @@
-import '../../assets/styles/card.css'
-import React from 'react'
-import { State } from '../form/Form'
+import '../../assets/styles/card.css';
+import React from 'react';
+import { State } from '../form/Form';
 
 interface CardProps {
-  Item: State
+  Item: State;
 }
 
 export const Card: React.FC<CardProps> = ({ Item }) => (
@@ -39,4 +39,4 @@ export const Card: React.FC<CardProps> = ({ Item }) => (
       </div>
     </div>
   </div>
-)
+);

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Card } from './card/Card'
-import { Form, State } from './form/Form'
+import React, { useState } from 'react';
+import { Card } from './card/Card';
+import { Form, State } from './form/Form';
 
 export function App() {
-  const [formValues, setFormValues] = useState<State[]>([])
+  const [formValues, setFormValues] = useState<State[]>([]);
   return (
     <div className="App">
       <Form setFormValues={setFormValues} />
@@ -13,5 +13,5 @@ export function App() {
         ))}
       </main>
     </div>
-  )
+  );
 }
