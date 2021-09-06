@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import '../../assets/styles/form.css';
+import './form.css';
 
 export interface State {
   firstName: string;
@@ -19,6 +19,7 @@ interface Errors {
   agreement?: boolean;
   toggle?: boolean;
 }
+
 interface FormProps {
   setFormValues: React.Dispatch<React.SetStateAction<State[]>>;
 }
@@ -58,6 +59,7 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
       setErrors((state) => ({ ...state, country }));
     }
   };
+
   useEffect(() => {
     validate();
   }, [agreement, firstName, surName, birthDate, email, country]);
@@ -73,12 +75,12 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
       setEmailError('');
     }
   };
+
   const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
     const re = /^[а-яёa-z][-а-яёa-z']{1,50}$/i;
     if (!re.test(String(event.target.value).toLowerCase())) {
       setErrors((state) => ({ ...state, firstName }));
-
       setNameError(
         "Only letters and symbols ' and - . Name should not exceed 50 symbols "
       );

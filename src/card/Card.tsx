@@ -1,4 +1,4 @@
-import '../../assets/styles/card.css';
+import './card.css';
 import React from 'react';
 import { State } from '../form/Form';
 
@@ -9,32 +9,32 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({ Item }) => (
   <div className="card-container">
     <div className="card">
-      <div className="inform">
-        <span className="point">
+      <div className="card__content">
+        <span className="card__content__point point">
           {' '}
-          Name: <span className="value">{Item.firstName}</span>
+          Name: <span className="point__value">{Item.firstName}</span>
         </span>
         <br />
-        <span className="point">
+        <span className="card__content__point point">
           Surname:
-          <span className="value">{Item.surName}</span>
+          <span className="point__value">{Item.surName}</span>
         </span>
         <br />
-        <span className="point">
-          Birh date: <span className="value">{Item.birthDate}</span>
+        <span className="card__content__point point">
+          Birh date: <span className="point__value">{Item.birthDate}</span>
         </span>
         <br />
-        <span className="point">
-          Country: <span className="value">{Item.country}</span>
+        <span className="card__content__point point">
+          Country: <span className="point__value">{Item.country}</span>
         </span>
         <br />
-        <span className="point">
-          Email: <span className="value">{Item.email}</span>
+        <span className="card__content__point point">
+          Email: <span className="point__value">{Item.email}</span>
         </span>
         <br />
-        <span className="point">
+        <span className="card__content__point point">
           To send newsletter:{' '}
-          <span className="value">{Item.toggle ? 'Yes' : 'No'}</span>
+          <span className="point__value">{Item.toggle ? 'Yes' : 'No'}</span>
         </span>
       </div>
     </div>

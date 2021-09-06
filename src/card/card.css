@@ -22,7 +22,6 @@ main {
 .card-container:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
-
 .card {
   width: 300px;
   min-height: 250px;
@@ -33,16 +32,15 @@ main {
   color: #707981;
   text-align: left;
 }
-.inform {
+.card__content {
   margin: 10px 0 10px 10px;
-
   width: 90%;
 }
-.card .point {
+.point {
   margin: 10px 0;
   word-wrap: break-word;
 }
-.card .value {
+.point__value {
   color: black;
   font-size: 20px;
 }

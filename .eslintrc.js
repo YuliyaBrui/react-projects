@@ -34,8 +34,6 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:jsx-a11y/recommended',
-    'eslint-config-airbnb',
   ],
   rules: {
     'no-console': 'warn',
@@ -50,7 +48,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/prefer-default-export': 'off',
-
     'import/extensions': [
       'error',
       'ignorePackages',
