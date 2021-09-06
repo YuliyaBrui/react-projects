@@ -1,4 +1,4 @@
-import '../../assets/styles/articles.css';
+import '../articles/articles.css';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Article } from '../types';
 
@@ -21,10 +21,12 @@ export const Articles: React.FC<ArticleProps> = ({
   const [articlePage, setArticlePage] = useState<number | string>(1);
   const [articlePerPage, setArticlePerPage] = useState<number>(1);
   const totalPages: number = Math.ceil(totalResults / articlePerPage);
+
   useEffect(() => {
     setArticlePage(page);
     setArticlePerPage(perPage);
   }, [page, perPage]);
+
   const handleChangePage = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const regexp = /^[0-9]+$/;
@@ -37,6 +39,7 @@ export const Articles: React.FC<ArticleProps> = ({
       setArticlePage(0);
     }
   };
+
   const handleChangePerPage = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const regexp = /^[0-9]+$/;

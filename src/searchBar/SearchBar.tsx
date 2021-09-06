@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
-import '../../assets/styles/search-bar.css';
+import '../searchBar/search-bar.css';
 import { Articles } from '../articles/Articles';
 
 import instance from '../services/api';
@@ -18,13 +18,14 @@ export const SearchBar: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(10);
   const [articles, setArticles] = useState<Article[]>([]);
+
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setIsClick(true);
     try {
       const response: AxiosResponse<GET200Articles> = await instance.get(
-        `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`,
+        `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`
       );
       setArticles(response.data.articles);
       setTotalResults(response.data.totalResults);
@@ -51,15 +52,12 @@ export const SearchBar: React.FC = () => {
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit}>
         <div className="search-container">
-          <label htmlFor="input__text" className="wrapper_input__text">
-            <img
-              src="./img/icons/search.svg"
-              alt="search"
-              style={{ width: '20px', height: '20px' }}
-            />
+          <label htmlFor="input_text" className="wrapper__input_text">
+            <img src="./img/icons/search.svg" alt="search" />
             <input
-              id="input__text"
+              id="input_text"
               placeholder="search news"
+              className="input input_text"
               type="text"
               value={searchValue}
               onChange={handleChange}
@@ -67,7 +65,7 @@ export const SearchBar: React.FC = () => {
             />
           </label>
           <button
-            className="button_submit"
+            className="button button_submit"
             type="submit"
             disabled={isLoading}
             onClick={handleClick}
@@ -80,37 +78,34 @@ export const SearchBar: React.FC = () => {
             <label htmlFor="first_radio">
               <input
                 id="first_radio"
-                className="input__radio"
+                className="input input_radio"
                 type="radio"
                 value={SortType.relevancy}
                 checked={sortBy === SortType.relevancy}
                 onChange={() => setSortBy(SortType.relevancy)}
-              />
-              {' '}
+              />{' '}
               relevancy
             </label>
             <label htmlFor="second_radio">
               <input
                 id="second_radio"
-                className="input__radio"
+                className="input input_radio"
                 type="radio"
                 value={SortType.popularity}
                 checked={sortBy === SortType.popularity}
                 onChange={() => setSortBy(SortType.popularity)}
-              />
-              {' '}
+              />{' '}
               popularity
             </label>
             <label htmlFor="third_radio">
               <input
                 id="third_radio"
-                className="input__radio"
+                className="input input_radio"
                 type="radio"
                 value={SortType.publishedAt}
                 checked={sortBy === SortType.publishedAt}
                 onChange={() => setSortBy(SortType.publishedAt)}
-              />
-              {' '}
+              />{' '}
               publication date
             </label>
           </div>
@@ -119,7 +114,7 @@ export const SearchBar: React.FC = () => {
               from:
               <input
                 id="from-date"
-                className="input__date"
+                className="input input_date"
                 type="date"
                 value={fromData}
                 onChange={handleFromData}
@@ -130,7 +125,7 @@ export const SearchBar: React.FC = () => {
               to:
               <input
                 id="to-date"
-                className="input__date"
+                className="input input_date"
                 type="date"
                 value={toData}
                 onChange={handleToData}
