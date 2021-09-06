@@ -13,7 +13,14 @@
     rgba(7, 108, 120, 1) 100%
   );
 }
-.wrapper_input {
+
+.search-form {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-form__input {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,16 +29,10 @@
   height: 30px;
   border-radius: 5px;
 }
-input {
+.input {
   outline: none;
   border: none;
   width: 95%;
-}
-.search-form {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .button_submit {
   transition: all 0.5s;

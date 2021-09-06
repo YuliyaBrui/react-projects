@@ -1,7 +1,3 @@
-type Placeholder = { placeholder: string };
-
-function SearchInput({ placeholder }: Placeholder) {
-  return <input placeholder={placeholder} type="search" />;
-}
-
-export default SearchInput;
+export const SearchInput = ({ placeholder }: { placeholder: string }) => (
+  <input className="input" placeholder={placeholder} type="search" />
+);

@@ -1,22 +1,18 @@
-interface Description {
-  title: string;
-  date: string;
-  author: string;
-  body: string;
-}
+import { Description } from '../types';
+
 export function DescriptionCard({ title, date, author, body }: Description) {
   return (
-    <div className="card__description">
-      <h2 className="title">{title}</h2>
-      <p className="info">
-        <span className="date">{date}</span>
+    <div className="card__info__item item">
+      <h2 className="item__title">{title}</h2>
+      <p className="item__public-info">
+        <span className="item__date">{date}</span>
         <span> / </span>
-        <a href="http://localhost:8080" className="author">
+        <a href="http://localhost:8080" className="item__author">
           {author}
         </a>
       </p>
-      <p className="summary">{body}</p>
-      <a className="article-link" href="http://localhost:8080">
+      <p className="item__summary">{body}</p>
+      <a className="item__link" href="http://localhost:8080">
         continue reading...
       </a>
     </div>

@@ -27,7 +27,6 @@ a {
 .card {
   border-radius: 5px;
   width: 300px;
-
   position: relative;
 }
 .card__img {
@@ -45,7 +44,7 @@ a {
 .card__img:hover {
   opacity: 0.5;
 }
-.card_info {
+.card__info {
   margin-top: 200px;
   width: 99, 9%;
   font-family: 'Oswald', sans-serif;
@@ -57,50 +56,48 @@ a {
   border-top: none;
   border-radius: 0 0 5px 5px;
 }
-.card__description {
+.item {
   padding-left: 20px;
   height: 150px;
 }
-.title {
+.item__title {
   font-size: 18px;
   text-transform: capitalize;
 }
-.info {
+.item__public-info {
   margin: 5px auto;
   color: grey;
   font-size: 14px;
   text-transform: capitalize;
   cursor: pointer;
 }
-.info .author {
-  color: grey;
+.item__author {
+  color: rgb(26, 23, 23);
   cursor: pointer;
 }
-.card__description .info .author:hover {
-  color: black;
-}
-.summary {
+
+.item__summary {
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0 auto;
 }
-.rating {
-  border-top: 1px solid darkgrey;
-}
-.rating_icon {
-  margin-left: 20px;
-  width: 20px;
-  height: 20px;
-}
-.rating_data {
-  font-size: 18px;
-  padding-left: 5px;
-}
-.article-link {
+.item__link {
   font-size: 14px;
   color: rgba(23, 69, 124, 1);
   margin: 0 auto;
   padding-left: 175px;
+}
+.rating-item {
+  border-top: 1px solid darkgrey;
+}
+.rating-item__icon {
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+}
+.rating-item__data {
+  font-size: 18px;
+  padding-left: 5px;
 }
