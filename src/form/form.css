@@ -6,6 +6,7 @@ body {
     rgba(96, 139, 179, 1) 100%
   );
 }
+
 .form {
   margin: 0 auto;
   background-color: white;
@@ -19,19 +20,23 @@ body {
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
 .mark {
   color: red;
 }
+
 .footnote {
   margin: 0 auto;
   font-size: 16px;
 }
+
 .label-input {
   margin: 0;
   margin-top: 10px;
   font-size: 18px;
   color: #707981;
 }
+
 input,
 select {
   border: 2px solid transparent;
@@ -48,14 +53,17 @@ select {
   background-color: #e9eff6;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
 }
+
 .input_text {
   width: 450px;
   height: 32px;
 }
+
 .select {
   width: 470px;
   height: 40px;
 }
+
 .button_submit {
   margin-top: 30px;
   margin-bottom: 20px;
@@ -89,6 +97,7 @@ select {
     rgba(83, 172, 116, 1) 100%
   );
 }
+
 .input_submit:hover {
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   color: black;
@@ -99,6 +108,7 @@ select {
     rgba(253, 226, 45, 1) 100%
   );
 }
+
 .toggle,
 .checkbox-agree {
   display: flex;
@@ -117,6 +127,7 @@ select {
   border-radius: 10px;
   margin-bottom: 5px;
 }
+
 .switch__checkbox {
   cursor: pointer;
   appearance: none;
@@ -136,6 +147,7 @@ select {
   text-transform: uppercase;
   font-size: 16px;
 }
+
 .switch__checkbox:after,
 .switch__checkbox:before {
   z-index: 2;
@@ -144,14 +156,17 @@ select {
   transform: translateY(-50%);
   color: white;
 }
+
 .switch__checkbox:before {
   content: 'Yes';
   left: 7px;
 }
+
 .switch__checkbox:after {
   content: 'No';
   right: 10px;
 }
+
 .switch__slider {
   z-index: 1;
   position: absolute;
@@ -159,6 +174,7 @@ select {
   bottom: 0px;
   border-radius: 5px;
 }
+
 .switch__checkbox {
   transition: 0.25s -0.1s;
 }
@@ -166,22 +182,25 @@ select {
 .switch__checkbox:checked {
   background-color: white;
 }
+
 .switch__checkbox:checked:before {
   color: black;
   transition: color 0.5s 0.2s;
 }
+
 .switch__checkbox:checked:after {
   color: grey;
   transition: color 0.5s;
 }
+
 .switch__checkbox:checked + .switch__slider {
   width: 30px;
   left: 10px;
   right: 50px;
   background: white;
-
   transition: left 0.5s, right 0.4s 0.2s;
 }
+
 .switch__checkbox:not(:checked) {
   background: rgb(217, 127, 67);
   background: linear-gradient(
@@ -192,14 +211,17 @@ select {
 
   transition: background 0.5s -0.1s;
 }
+
 .switch__checkbox:not(:checked):before {
   color: grey;
   transition: color 0.5s;
 }
+
 .switch__checkbox:not(:checked):after {
   color: black;
   transition: color 0.5s 0.2s;
 }
+
 .switch__checkbox:not(:checked) + .switch__slider {
   width: 30px;
   left: 38px;
@@ -207,9 +229,11 @@ select {
   background: white;
   transition: left 0.4s 0.2s, right 0.5s, background 0.35s -0.1s;
 }
+
 .value-empty {
   border: 1px solid #eb516d;
 }
+
 .error {
   color: red;
   font-size: 14px;
@@ -217,16 +241,19 @@ select {
   margin: 0 auto;
   width: 95%;
 }
+
 .checkbox {
   width: 20px;
   height: 20px;
   margin-left: 30px;
 }
+
 .text-agreement {
   margin: 0;
   width: 80%;
   height: 40px;
 }
+
 @media (max-width: 570px) {
   .form {
     width: 370px;
@@ -270,6 +297,7 @@ select {
     margin-left: 20px;
   }
 }
+
 @media (max-width: 385px) {
   .form {
     width: 300px;

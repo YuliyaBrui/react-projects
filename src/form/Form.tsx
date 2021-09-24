@@ -8,7 +8,7 @@ export interface State {
   country: string;
   email: string;
   agreement: boolean;
-  toggle: boolean;
+  sendNews: boolean;
 }
 interface Errors {
   firstName?: string;
@@ -17,7 +17,7 @@ interface Errors {
   country?: string;
   email?: string;
   agreement?: boolean;
-  toggle?: boolean;
+  sendNews?: boolean;
 }
 
 interface FormProps {
@@ -31,7 +31,7 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
   const [country, setCountry] = useState('Choose country');
   const [email, setEmail] = useState('');
   const [agreement, setAgreement] = useState(false);
-  const [toggle, setToggle] = useState(true);
+  const [sendNews, setSendNews] = useState(true);
   const [errors, setErrors] = useState({} as Errors);
   const [emailError, setEmailError] = useState('');
   const [nameError, setNameError] = useState('');
@@ -42,21 +42,29 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
     if (!agreement) {
       setErrors((state) => ({ ...state, agreement }));
     }
-    if (firstName === '') {
+    if (!firstName.length) {
       setErrors((state) => ({ ...state, firstName }));
     }
-    if (surName === '') {
+    if (!surName.length) {
       setErrors((state) => ({ ...state, surName }));
     }
-    if (email === '') {
+    if (!email.length) {
       setErrors((state) => ({ ...state, email }));
     }
-
-    if (birthDate === '') {
+    if (!birthDate) {
       setErrors((state) => ({ ...state, birthDate }));
     }
     if (country === 'Choose country') {
       setErrors((state) => ({ ...state, country }));
+    }
+    if (emailError.length) {
+      setErrors((state) => ({ ...state, emailError }));
+    }
+    if (nameError.length) {
+      setErrors((state) => ({ ...state, emailError }));
+    }
+    if (surNameError.length) {
+      setErrors((state) => ({ ...state, emailError }));
     }
   };
 
@@ -66,10 +74,9 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
 
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    const re =
+    const regExp =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(event.target.value).toLowerCase())) {
-      setErrors((state) => ({ ...state, email }));
+    if (!regExp.test(String(event.target.value).toLowerCase())) {
       setEmailError('incorrect address');
     } else {
       setEmailError('');
@@ -78,9 +85,8 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
 
   const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
-    const re = /^[а-яёa-z][-а-яёa-z']{1,50}$/i;
-    if (!re.test(String(event.target.value).toLowerCase())) {
-      setErrors((state) => ({ ...state, firstName }));
+    const regExp = /^[а-яёa-z][-а-яёa-z']{1,50}$/i;
+    if (!regExp.test(String(event.target.value).toLowerCase())) {
       setNameError(
         "Only letters and symbols ' and - . Name should not exceed 50 symbols "
       );
@@ -90,9 +96,8 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
   };
   const surNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSurName(event.target.value);
-    const re = /^[а-яёa-z][-а-яёa-z']{1,50}$/i;
-    if (!re.test(String(event.target.value).toLowerCase())) {
-      setErrors((state) => ({ ...state, surName }));
+    const regExp = /^[а-яёa-z][-а-яёa-z']{1,50}$/i;
+    if (!regExp.test(String(event.target.value).toLowerCase())) {
       setSurNameError(
         "Only letters and symbols ' and - . Surname should not exceed 50 symbols "
       );
@@ -107,7 +112,10 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
     setBirthDate('');
     setCountry('Choose country');
     setEmail('');
-    setToggle(true);
+    setSendNews(true);
+    setNameError('');
+    setEmailError('');
+    setSurNameError('');
   };
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -121,29 +129,35 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
           country,
           email,
           agreement,
-          toggle,
+          sendNews,
         },
       ]);
       alert('registration completed successfully');
       reset();
     }
   };
-
+  const countries = [
+    'Belarus',
+    'Kazakhstan',
+    'Lithuania',
+    'Poland',
+    'Russia',
+    'Ukraine',
+  ];
   return (
     <form onSubmit={handleSubmit} className="form">
       <h2>User Registration</h2>
       <p className="footnote">
-        {' '}
         <span className="mark">*</span>- required field
       </p>
       <label htmlFor="firstName" className="container-input">
         <p className="label-input">
-          {' '}
-          <span className="mark">*</span> Name :
+          <span className="mark">*</span>
+          Name :
         </p>
         <input
           className={
-            errors?.firstName === '' ? 'value-empty input_text' : 'input_text'
+            !firstName.length ? 'value-empty input_text' : 'input_text'
           }
           type="text"
           name="firstName"
@@ -162,9 +176,7 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
           Surname:
         </p>
         <input
-          className={
-            errors?.surName === '' ? 'value-empty input_text' : 'input_text'
-          }
+          className={!surName?.length ? 'value-empty input_text' : 'input_text'}
           type="text"
           name="surName"
           value={surName}
@@ -183,14 +195,14 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
         </p>
         <input
           className={
-            errors?.birthDate === '' ? 'value-empty input_text' : 'input_text'
+            !birthDate.length ? 'value-empty input_text' : 'input_text'
           }
           type="date"
           name="birthDate"
           value={birthDate}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            const newValue = e.target.value;
-            setBirthDate(newValue);
+            const { value } = e.target;
+            setBirthDate(value);
           }}
         />
       </label>
@@ -208,19 +220,16 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
           name="country"
           value={country}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            const newValue = e.target.value;
-            setCountry(newValue);
+            const { value } = e.target;
+            setCountry(value);
           }}
         >
           <option disabled defaultValue=" Choose country">
             Choose country
           </option>
-          <option>Belarus</option>
-          <option>Kazakhstan</option>
-          <option>Lithuania</option>
-          <option>Poland</option>
-          <option>Russia</option>
-          <option>Ukraine</option>
+          {countries.map((value) => (
+            <option key={Math.random()}>{value}</option>
+          ))}
         </select>
       </label>
       <label htmlFor="email" className="container-input">
@@ -229,9 +238,7 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
           E-mail:
         </p>
         <input
-          className={
-            errors?.email === '' ? 'value-empty input_text' : 'input_text'
-          }
+          className={!email.length ? 'value-empty input_text' : 'input_text'}
           type="text"
           name="email"
           value={email}
@@ -240,7 +247,6 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
           }}
         />
         <p className="error">
-          {' '}
           {emailError && <span className="error">{emailError}</span>}
         </p>
       </label>
@@ -250,13 +256,12 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
             className="switch__checkbox"
             type="checkbox"
             name="toggle"
-            checked={toggle}
-            onChange={() => setToggle((prev) => !prev)}
+            checked={sendNews}
+            onChange={() => setSendNews((prev) => !prev)}
           />
           <span className="switch__slider" />
         </div>
         <p className="text-agreement">
-          {' '}
           Do you want to be notified about news and promotions?
         </p>
       </label>
@@ -269,10 +274,9 @@ export const Form: React.FC<FormProps> = ({ setFormValues }) => {
           onChange={() => setAgreement((prev) => !prev)}
         />
         <p className="text-agreement">
-          {' '}
           I agree to the processing of personal data
-          <br />{' '}
-          {errors?.agreement !== undefined && (
+          <br />
+          {!agreement && (
             <span className="error">agreement should be checked</span>
           )}
         </p>

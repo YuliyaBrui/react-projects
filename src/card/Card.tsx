@@ -11,8 +11,8 @@ export const Card: React.FC<CardProps> = ({ Item }) => (
     <div className="card">
       <div className="card__content">
         <span className="card__content__point point">
-          {' '}
-          Name: <span className="point__value">{Item.firstName}</span>
+          Name:
+          <span className="point__value">{Item.firstName}</span>
         </span>
         <br />
         <span className="card__content__point point">
@@ -21,20 +21,23 @@ export const Card: React.FC<CardProps> = ({ Item }) => (
         </span>
         <br />
         <span className="card__content__point point">
-          Birh date: <span className="point__value">{Item.birthDate}</span>
+          Birh date:
+          <span className="point__value">{Item.birthDate}</span>
         </span>
         <br />
         <span className="card__content__point point">
-          Country: <span className="point__value">{Item.country}</span>
+          Country:
+          <span className="point__value">{Item.country}</span>
         </span>
         <br />
         <span className="card__content__point point">
-          Email: <span className="point__value">{Item.email}</span>
+          Email:
+          <span className="point__value">{Item.email}</span>
         </span>
         <br />
         <span className="card__content__point point">
-          To send newsletter:{' '}
-          <span className="point__value">{Item.toggle ? 'Yes' : 'No'}</span>
+          To send newsletter:
+          <span className="point__value">{Item.sendNews ? 'Yes' : 'No'}</span>
         </span>
       </div>
     </div>
