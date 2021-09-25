@@ -16,7 +16,7 @@
 .input {
   outline: none;
 }
-.wrapper_input__text {
+.wrapper__input_text {
   display: flex;
   justify-content: space-between;
   align-items: center;

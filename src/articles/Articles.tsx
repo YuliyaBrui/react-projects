@@ -1,4 +1,4 @@
-import '../articles/articles.css';
+import './articles.css';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Article } from '../types';
 
@@ -29,8 +29,8 @@ export const Articles: React.FC<ArticleProps> = ({
 
   const handleChangePage = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const regexp = /^[0-9]+$/;
-    const checkValue = value.match(regexp);
+    const regExp = /^[0-9]+$/;
+    const checkValue = value.match(regExp);
     if (checkValue) {
       const newValue = +checkValue[0];
       onChangePage(newValue);
@@ -42,8 +42,8 @@ export const Articles: React.FC<ArticleProps> = ({
 
   const handleChangePerPage = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const regexp = /^[0-9]+$/;
-    const checkValue = value.match(regexp);
+    const regExp = /^[0-9]+$/;
+    const checkValue = value.match(regExp);
     if (checkValue) {
       const newValue = +checkValue[0];
       onChangePerPage(newValue);
@@ -79,7 +79,7 @@ export const Articles: React.FC<ArticleProps> = ({
                 max={totalPages}
                 step="1"
               />
-              page from{' '}
+              page from
               <span className="total-pages">
                 {articlePerPage > 0 ? totalPages : ''}
               </span>

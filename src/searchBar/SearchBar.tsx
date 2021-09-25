@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import React, { useState } from 'react';
-import '../searchBar/search-bar.css';
+import React, { useEffect, useState } from 'react';
+import './search-bar.css';
 import { Articles } from '../articles/Articles';
 
 import instance from '../services/api';
@@ -19,13 +19,12 @@ export const SearchBar: React.FC = () => {
   const [perPage, setPerPage] = useState<number>(10);
   const [articles, setArticles] = useState<Article[]>([]);
 
-  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const searchInform = async () => {
     setIsLoading(true);
     setIsClick(true);
     try {
       const response: AxiosResponse<GET200Articles> = await instance.get(
-        `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`
+        `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`,
       );
       setArticles(response.data.articles);
       setTotalResults(response.data.totalResults);
@@ -35,24 +34,32 @@ export const SearchBar: React.FC = () => {
       setIsLoading(false);
     }
   };
-
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await searchInform();
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-  const handleFromData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFromData = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setFromData(e.target.value);
   };
-  const handleToData = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToData = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setToData(e.target.value);
   };
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setIsClick(false);
   };
+  useEffect(() => {
+    if (searchValue.length) {
+      searchInform();
+    }
+  }, [sortBy, fromData, toData, page, perPage]);
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit}>
         <div className="search-container">
-          <label htmlFor="input_text" className="wrapper__input_text">
+          <div className="wrapper__input_text">
             <img src="./img/icons/search.svg" alt="search" />
             <input
               id="input_text"
@@ -63,7 +70,7 @@ export const SearchBar: React.FC = () => {
               onChange={handleChange}
               disabled={isLoading}
             />
-          </label>
+          </div>
           <button
             className="button button_submit"
             type="submit"
@@ -82,8 +89,10 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.relevancy}
                 checked={sortBy === SortType.relevancy}
-                onChange={() => setSortBy(SortType.relevancy)}
-              />{' '}
+                onChange={() => {
+                  setSortBy(SortType.relevancy);
+                }}
+              />
               relevancy
             </label>
             <label htmlFor="second_radio">
@@ -94,7 +103,7 @@ export const SearchBar: React.FC = () => {
                 value={SortType.popularity}
                 checked={sortBy === SortType.popularity}
                 onChange={() => setSortBy(SortType.popularity)}
-              />{' '}
+              />
               popularity
             </label>
             <label htmlFor="third_radio">
@@ -104,8 +113,10 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.publishedAt}
                 checked={sortBy === SortType.publishedAt}
-                onChange={() => setSortBy(SortType.publishedAt)}
-              />{' '}
+                onChange={() => {
+                  setSortBy(SortType.publishedAt);
+                }}
+              />
               publication date
             </label>
           </div>
@@ -180,8 +191,12 @@ export const SearchBar: React.FC = () => {
           page={page}
           perPage={perPage}
           totalResults={totalResults}
-          onChangePerPage={(pageFromInput: number) => setPerPage(pageFromInput)}
-          onChangePage={(pageFromInput: number) => setPage(pageFromInput)}
+          onChangePerPage={async (pageFromInput: number) => {
+            setPerPage(pageFromInput);
+          }}
+          onChangePage={async (pageFromInput: number) => {
+            setPage(pageFromInput);
+          }}
         />
       )}
     </div>
