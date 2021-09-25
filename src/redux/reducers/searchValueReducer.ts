@@ -6,7 +6,7 @@ import {
 } from '../actions/searchValue';
 
 export interface IstateTooling {
-  stateTooling: IValueState
+  stateTooling: IValueState;
 }
 const initialState: IstateTooling = {
   stateTooling: {
