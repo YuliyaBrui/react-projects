@@ -17,9 +17,7 @@ export const PageAbout = () => (
       </p>
       <ul>
         <li>Where are the gaps in your knowledge?</li>
-        <li>
-          What information do you need to find to support your arguments?
-        </li>
+        <li>What information do you need to find to support your arguments?</li>
         <li>What depth of information do you need? </li>
         <li>
           Does the information you need cover a particular time period, or

@@ -1,8 +1,12 @@
 import { SortType } from '../../types';
-import { IValueState, SearchValueAction, valueTypes } from '../actions/searchValue';
+import {
+  IValueState,
+  SearchValueAction,
+  valueTypes,
+} from '../actions/searchValue';
 
-export interface IstateTooling{
-    stateTooling: IValueState;
+export interface IstateTooling {
+  stateTooling: IValueState
 }
 const initialState: IstateTooling = {
   stateTooling: {
@@ -17,7 +21,7 @@ const initialState: IstateTooling = {
 export const addSearchValueReducer = (
   state: IstateTooling = initialState,
   action: SearchValueAction,
-):IstateTooling => {
+): IstateTooling => {
   switch (action.type) {
     case valueTypes.ADD_SEARCH_VALUE:
       return { ...state, stateTooling: action.payload.stateTooling };

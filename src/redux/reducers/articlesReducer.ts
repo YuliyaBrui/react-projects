@@ -17,7 +17,10 @@ export const articlesReducer = (
   switch (action.type) {
     case ArticlesActionTypes.FETCH_ARTICLES:
       return {
-        loading: true, error: null, articles: [], totalResults: 0,
+        loading: true,
+        error: null,
+        articles: [],
+        totalResults: 0,
       };
     case ArticlesActionTypes.FETCH_ARTICLES_SUCCESS:
       return {

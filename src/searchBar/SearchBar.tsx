@@ -8,11 +8,15 @@ import { fetchArticles } from '../redux/actions/articles';
 import { addSearchValue } from '../redux/actions/searchValue';
 
 export const SearchBar: React.FC = () => {
-  const stateTooling = useSelector((state:Rootstate) => state.value.stateTooling);
+  const stateTooling = useSelector(
+    (state: Rootstate) => state.value.stateTooling,
+  );
   const articles = useSelector((state: Rootstate) => state.articles);
   const dispatch = useDispatch();
   const [isClick, setIsClick] = useState(false);
-  const [searchValue, setSearchValue] = useState<string>(stateTooling.searchValue);
+  const [searchValue, setSearchValue] = useState<string>(
+    stateTooling.searchValue,
+  );
   const [fromData, setFromData] = useState(stateTooling.fromData);
   const [toData, setToData] = useState(stateTooling.toData);
   const [sortBy, setSortBy] = useState<SortType>(stateTooling.sortBy);
@@ -21,10 +25,19 @@ export const SearchBar: React.FC = () => {
   const getData = async () => {
     if (searchValue.length) {
       setIsClick(true);
-      dispatch(addSearchValue({
-        searchValue, sortBy, fromData, toData, page, perPage,
-      }));
-      dispatch(fetchArticles(searchValue, sortBy, fromData, toData, page, perPage));
+      dispatch(
+        addSearchValue({
+          searchValue,
+          sortBy,
+          fromData,
+          toData,
+          page,
+          perPage,
+        }),
+      );
+      dispatch(
+        fetchArticles(searchValue, sortBy, fromData, toData, page, perPage),
+      );
     }
   };
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -188,7 +201,9 @@ export const SearchBar: React.FC = () => {
           onChangePerPage={(pageFromInput: number) => setPerPage(pageFromInput)}
           onChangePage={(pageFromInput: number) => setPage(pageFromInput)}
         />
-      ) : ''}
+      ) : (
+        ''
+      )}
     </div>
   );
 };

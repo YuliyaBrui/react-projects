@@ -11,7 +11,7 @@ type Params = {
 }
 export const DetailsArticle: React.FC<Article> = () => {
   const { qInTitle } = useParams<Params>();
-  const details = useSelector((state:Rootstate) => state.details);
+  const details = useSelector((state: Rootstate) => state.details);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDetails(qInTitle));

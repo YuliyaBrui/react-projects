@@ -4,20 +4,26 @@ import { Link } from 'react-router-dom';
 import { Article } from '../types';
 
 interface ArticleProps {
-  page: number,
-  perPage: number,
-  totalResults: number | undefined,
-  articles: Article[],
-  onChangePage: (pageFromInput: number) => void,
+  page: number
+  perPage: number
+  totalResults: number | undefined
+  articles: Article[]
+  onChangePage: (pageFromInput: number) => void
   onChangePerPage: (pageFromInput: number) => void
 }
 
 export const Articles: React.FC<ArticleProps> = ({
-  page, perPage, totalResults, articles, onChangePage, onChangePerPage,
+  page,
+  perPage,
+  totalResults,
+  articles,
+  onChangePage,
+  onChangePerPage,
 }: ArticleProps) => {
   const [articlePage, setArticlePage] = useState<number | string>(1);
   const [articlePerPage, setArticlePerPage] = useState<number>(1);
-  const totalPages: number = totalResults ? Math.ceil(totalResults / articlePerPage)
+  const totalPages: number = totalResults
+    ? Math.ceil(totalResults / articlePerPage)
     : 0;
 
   useEffect(() => {

@@ -37,18 +37,19 @@ module.exports = {
     'eslint-config-airbnb',
   ],
   rules: {
+    semi: [2, 'always'],
     'no-console': 'warn',
     'no-alert': 'warn',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/no-var-requires': 'off',
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
     'react/prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/prefer-default-export': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
 
@@ -67,4 +68,4 @@ module.exports = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
   },
-}
+};
