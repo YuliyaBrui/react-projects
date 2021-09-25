@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import React, { useState } from 'react';
-import '../../assets/styles/search-bar.css';
+import React, { useEffect, useState } from 'react';
+import './search-bar.css';
 import { Articles } from '../articles/Articles';
 
 import instance, { API_KEY } from '../services/api';
@@ -18,7 +18,9 @@ export const SearchBar: React.FC = () => {
   const [perPage, setPerPage] = useState<number>(10);
   const [articles, setArticles] = useState<Article[]>([]);
   const getData = async () => {
-    if (searchValue !== '') {
+    if (searchValue.length) {
+      setIsLoading(true);
+      setIsClick(true);
       try {
         const response: AxiosResponse<GET200Articles> = await instance.get(
           `v2/everything?q=${searchValue}&sortBy=${sortBy}&from=${fromData}&to=${toData}&pageSize=${perPage}&page=${page}&apiKey=${API_KEY}`,
@@ -34,8 +36,6 @@ export const SearchBar: React.FC = () => {
   };
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
-    setIsClick(true);
     getData();
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +50,9 @@ export const SearchBar: React.FC = () => {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setIsClick(false);
   };
+  useEffect(() => {
+    getData();
+  }, [sortBy, fromData, toData, page, perPage]);
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit}>
@@ -92,7 +95,6 @@ export const SearchBar: React.FC = () => {
                   setSortBy(SortType.relevancy);
                 }}
               />
-              {' '}
               relevancy
             </label>
             <label htmlFor="second_radio">
@@ -106,7 +108,6 @@ export const SearchBar: React.FC = () => {
                   setSortBy(SortType.popularity);
                 }}
               />
-              {' '}
               popularity
             </label>
             <label htmlFor="third_radio">
@@ -120,7 +121,6 @@ export const SearchBar: React.FC = () => {
                   setSortBy(SortType.publishedAt);
                 }}
               />
-              {' '}
               publication date
             </label>
           </div>

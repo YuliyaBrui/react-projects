@@ -7,7 +7,7 @@ import { DetailsArticle } from './articles/DetailsArticle';
 import { NotFound } from './pages/NotFound';
 import { PageAbout } from './pages/PageAbout';
 import { SearchBar } from './searchBar/SearchBar';
-import '../assets/styles/header.css';
+import './components/header.css';
 
 const Content = () => {
   const location = useLocation();

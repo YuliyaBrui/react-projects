@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import instance, { API_KEY } from '../services/api';
 import { Article, GET200Articles } from '../types';
-import '../../assets/styles/page-details.css';
+import './page-details.css';
 
 type Params = {
   qInTitle: string;

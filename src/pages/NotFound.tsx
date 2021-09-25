@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/styles/not-found.css';
+import './not-found.css';
 
 export const NotFound = () => (
   <div className="page-404">

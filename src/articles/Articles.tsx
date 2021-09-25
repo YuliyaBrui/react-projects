@@ -1,4 +1,4 @@
-import '../../assets/styles/articles.css';
+import './articles.css';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Article } from '../types';
