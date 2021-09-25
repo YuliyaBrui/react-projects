@@ -1,0 +1,49 @@
+header {
+  width: 85vw;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav {
+  width: 200px;
+}
+.nav_list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  list-style-type: none;
+}
+.nav .non-active {
+  padding-right: 30px;
+  font-size: 24px;
+  font-family: 'Osward', sans-serif;
+  color: black;
+}
+.logo {
+  width: 45px;
+  height: 45px;
+}
+.routes-container {
+  position: relative;
+}
+.page-enter {
+  opacity: 0;
+
+  z-index: 1;
+}
+
+.page-enter-active {
+  opacity: 1;
+  transition: opacity 400ms ease-in;
+}
+.page-exit {
+  opacity: 1;
+}
+.page-exit-active {
+  opacity: 0;
+
+  transition: opacity 200ms ease-in;
+}
