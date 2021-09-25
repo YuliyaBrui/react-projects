@@ -1,5 +1,4 @@
-import React from 'react'
-import '../../assets/styles/page-about.css'
+import './page-about.css';
 
 export const PageAbout = () => (
   <article className="page-about">
@@ -19,7 +18,7 @@ export const PageAbout = () => (
       <ul>
         <li>Where are the gaps in your knowledge?</li>
         <li>
-          What information do you need to find to support your arguments?{' '}
+          What information do you need to find to support your arguments?
         </li>
         <li>What depth of information do you need? </li>
         <li>
@@ -55,10 +54,9 @@ export const PageAbout = () => (
         a particular field of study (or subject area). To some extent this may
         be dictated by your question, or the way in which you have chosen to
         narrow the focus of your research.You may also want to limit your search
-        to a particular type of information, or type of publication.{' '}
+        to a particular type of information, or type of publication.
       </p>
       <p>
-        {' '}
         It is worth noting that if you are looking for very specialist
         information, such as a marketing report, or a particular set of data for
         example, it may be that you will need to use a specialist information
@@ -66,4 +64,4 @@ export const PageAbout = () => (
       </p>
     </section>
   </article>
-)
+);

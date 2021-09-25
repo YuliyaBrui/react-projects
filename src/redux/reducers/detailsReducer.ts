@@ -2,7 +2,8 @@ import {
   DetailsAction,
   DetailsActionTypes,
   DetailsState,
-} from '../types/details'
+} from '../types/details';
+
 const initialState: DetailsState = {
   details: {
     author: '',
@@ -15,19 +16,19 @@ const initialState: DetailsState = {
   },
   error: null,
   loading: false,
-}
+};
 export const detailsReducer = (
   state: DetailsState = initialState,
-  action: DetailsAction
+  action: DetailsAction,
 ): DetailsState => {
   switch (action.type) {
     case DetailsActionTypes.FETCH_DETAILS:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
     case DetailsActionTypes.FETCH_DETAILS_SUCCESS:
-      return { ...state, loading: false, details: action.payload }
+      return { ...state, loading: false, details: action.payload };
     case DetailsActionTypes.FETCH_DETAILS_ERROR:
-      return { ...state, loading: false, error: action.payload }
+      return { ...state, loading: false, error: action.payload };
     default:
-      return state
+      return state;
   }
-}
+};

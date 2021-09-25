@@ -1,51 +1,53 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import '../../assets/styles/search-bar.css'
-import { Articles } from '../articles/Articles'
-import { fetchArticles } from '../redux/actions/articles'
-import { useTypeSelector } from '../redux/hooks/useTypeSelector'
-import { useAction } from '../redux/hooks/useAction'
-
-import { SortType } from '../types'
+import React, { useEffect, useState } from 'react';
+import './search-bar.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { Articles } from '../articles/Articles';
+import { SortType } from '../types';
+import { Rootstate } from '../redux/reducers';
+import { fetchArticles } from '../redux/actions/articles';
+import { addSearchValue } from '../redux/actions/searchValue';
 
 export const SearchBar: React.FC = () => {
-  const state = useTypeSelector((state) => state.articles)
-  const { fetchArticles } = useAction()
-  // const dispatch = useDispatch()
-  const [isClick, setIsClick] = useState(false)
-  const [searchValue, setSearchValue] = useState<string>('')
-  const [fromData, setFromData] = useState('')
-  const [toData, setToData] = useState('')
-  const [sortBy, setSortBy] = useState<SortType>(SortType.popularity)
-  const [page, setPage] = useState<number>(1)
-  const [perPage, setPerPage] = useState<number>(10)
+  const stateTooling = useSelector((state:Rootstate) => state.value.stateTooling);
+  const articles = useSelector((state: Rootstate) => state.articles);
+  const dispatch = useDispatch();
+  const [isClick, setIsClick] = useState(false);
+  const [searchValue, setSearchValue] = useState<string>(stateTooling.searchValue);
+  const [fromData, setFromData] = useState(stateTooling.fromData);
+  const [toData, setToData] = useState(stateTooling.toData);
+  const [sortBy, setSortBy] = useState<SortType>(stateTooling.sortBy);
+  const [page, setPage] = useState<number>(stateTooling.page);
+  const [perPage, setPerPage] = useState<number>(stateTooling.perPage);
   const getData = async () => {
-    console.log(searchValue, sortBy, fromData, toData, page, perPage)
-
-    fetchArticles(searchValue, sortBy, fromData, toData, page, perPage)
-  }
-
+    if (searchValue.length) {
+      setIsClick(true);
+      dispatch(addSearchValue({
+        searchValue, sortBy, fromData, toData, page, perPage,
+      }));
+      dispatch(fetchArticles(searchValue, sortBy, fromData, toData, page, perPage));
+    }
+  };
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    setIsClick(true)
-    getData()
-    console.log(state.articles)
-  }
+    event.preventDefault();
+    getData();
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value)
-  }
+    setSearchValue(e.target.value);
+  };
 
   const handleFromData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFromData(e.target.value)
-  }
+    setFromData(e.target.value);
+  };
   const handleToData = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setToData(e.target.value)
-  }
+    setToData(e.target.value);
+  };
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setIsClick(false)
-  }
+    setIsClick(false);
+  };
+  useEffect(() => {
+    getData();
+  }, [sortBy, fromData, toData, page, perPage]);
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit}>
@@ -63,13 +65,13 @@ export const SearchBar: React.FC = () => {
               required
               value={searchValue}
               onChange={handleChange}
-              disabled={state.loading}
+              disabled={articles.loading}
             />
           </label>
           <button
             className="button_submit"
             type="submit"
-            disabled={state.loading}
+            disabled={articles.loading}
             onClick={handleClick}
           >
             search
@@ -84,10 +86,8 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.relevancy}
                 checked={sortBy === SortType.relevancy}
-                onChange={() => {
-                  setSortBy(SortType.relevancy)
-                }}
-              />{' '}
+                onChange={() => setSortBy(SortType.relevancy)}
+              />
               relevancy
             </label>
             <label htmlFor="second_radio">
@@ -97,10 +97,8 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.popularity}
                 checked={sortBy === SortType.popularity}
-                onChange={() => {
-                  setSortBy(SortType.popularity)
-                }}
-              />{' '}
+                onChange={() => setSortBy(SortType.popularity)}
+              />
               popularity
             </label>
             <label htmlFor="third_radio">
@@ -110,10 +108,8 @@ export const SearchBar: React.FC = () => {
                 type="radio"
                 value={SortType.publishedAt}
                 checked={sortBy === SortType.publishedAt}
-                onChange={() => {
-                  setSortBy(SortType.publishedAt)
-                }}
-              />{' '}
+                onChange={() => setSortBy(SortType.publishedAt)}
+              />
               publication date
             </label>
           </div>
@@ -126,7 +122,7 @@ export const SearchBar: React.FC = () => {
                 type="date"
                 value={fromData}
                 onChange={handleFromData}
-                disabled={state.loading}
+                disabled={articles.loading}
                 max={toData}
               />
             </label>
@@ -138,7 +134,7 @@ export const SearchBar: React.FC = () => {
                 type="date"
                 value={toData}
                 onChange={handleToData}
-                disabled={state.loading}
+                disabled={articles.loading}
                 min={fromData}
               />
             </label>
@@ -147,7 +143,7 @@ export const SearchBar: React.FC = () => {
       </form>
 
       <div />
-      {isClick && state.loading && (
+      {isClick && articles.loading && (
         <div className="loader">
           <svg
             version="1.1"
@@ -183,16 +179,16 @@ export const SearchBar: React.FC = () => {
           </svg>
         </div>
       )}
-      {isClick && !state.loading && (
+      {isClick || articles.articles.length ? (
         <Articles
-          articles={state.articles}
+          articles={articles.articles}
           page={page}
           perPage={perPage}
-          totalResults={state?.totalResults}
+          totalResults={articles.totalResults}
           onChangePerPage={(pageFromInput: number) => setPerPage(pageFromInput)}
           onChangePage={(pageFromInput: number) => setPage(pageFromInput)}
         />
-      )}
+      ) : ''}
     </div>
-  )
-}
+  );
+};

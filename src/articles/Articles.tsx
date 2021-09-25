@@ -1,58 +1,57 @@
-import '../../assets/styles/articles.css'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-
-import { Article } from '../types'
+import './articles.css';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Article } from '../types';
 
 interface ArticleProps {
-  page: number
-  perPage: number
-  totalResults?: number
-  articles: Article[]
-  onChangePage: (pageFromInput: number) => void
+  page: number,
+  perPage: number,
+  totalResults: number | undefined,
+  articles: Article[],
+  onChangePage: (pageFromInput: number) => void,
   onChangePerPage: (pageFromInput: number) => void
 }
 
-export const Articles: React.FC<ArticleProps> = (props: ArticleProps) => {
-  const [articlePage, setArticlePage] = useState<number | string>(1)
-  const [articlePerPage, setArticlePerPage] = useState<number>(1)
-
-  const totalPages: number = props.totalResults
-    ? Math.ceil(props.totalResults / articlePerPage)
-    : 0
+export const Articles: React.FC<ArticleProps> = ({
+  page, perPage, totalResults, articles, onChangePage, onChangePerPage,
+}: ArticleProps) => {
+  const [articlePage, setArticlePage] = useState<number | string>(1);
+  const [articlePerPage, setArticlePerPage] = useState<number>(1);
+  const totalPages: number = totalResults ? Math.ceil(totalResults / articlePerPage)
+    : 0;
 
   useEffect(() => {
-    setArticlePage(props.page)
-    setArticlePerPage(props.perPage)
-  }, [props.page, props.perPage])
+    setArticlePage(page);
+    setArticlePerPage(perPage);
+  }, [page, perPage]);
 
   const handleChangePage = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    const regexp = /^[0-9]+$/
-    const checkValue = value.match(regexp)
+    const { value } = event.target;
+    const regExp = /^[0-9]+$/;
+    const checkValue = value.match(regExp);
     if (checkValue) {
-      const newValue = +checkValue[0]
-      props.onChangePage(newValue)
-      setArticlePage(newValue)
+      const newValue = +checkValue[0];
+      onChangePage(newValue);
+      setArticlePage(newValue);
     } else {
-      setArticlePage(0)
+      setArticlePage(0);
     }
-  }
+  };
   const handleChangePerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    const regexp = /^[0-9]+$/
-    const checkValue = value.match(regexp)
+    const { value } = event.target;
+    const regExp = /^[0-9]+$/;
+    const checkValue = value.match(regExp);
     if (checkValue) {
-      const newValue = +checkValue[0]
-      props.onChangePerPage(newValue)
-      setArticlePerPage(newValue)
+      const newValue = +checkValue[0];
+      onChangePerPage(newValue);
+      setArticlePerPage(newValue);
     } else {
-      setArticlePerPage(0)
+      setArticlePerPage(0);
     }
-  }
+  };
   return (
     <main>
-      {props.articles.length ? (
+      {articles.length ? (
         <div>
           <div className="container-pagination">
             <label htmlFor="input-perPage">
@@ -78,7 +77,7 @@ export const Articles: React.FC<ArticleProps> = (props: ArticleProps) => {
                   max={totalPages}
                   step="1"
                 />
-                page from{' '}
+                page from
               </label>
               <p className="total-pages">
                 {articlePerPage > 0 ? totalPages : ' '}
@@ -86,7 +85,7 @@ export const Articles: React.FC<ArticleProps> = (props: ArticleProps) => {
             </div>
           </div>
           <div className="articles-field">
-            {props.articles.map((article) => (
+            {articles.map((article) => (
               <div
                 className="card-container"
                 key={article.title + Math.random()}
@@ -100,8 +99,8 @@ export const Articles: React.FC<ArticleProps> = (props: ArticleProps) => {
                           article.urlToImage
                             ? { backgroundImage: `url(${article.urlToImage})` }
                             : {
-                                backgroundImage: 'url(./img/unknown_image.jpg)',
-                              }
+                              backgroundImage: 'url(./img/unknown_image.jpg)',
+                            }
                         }
                       />
                     </div>
@@ -133,5 +132,5 @@ export const Articles: React.FC<ArticleProps> = (props: ArticleProps) => {
         </span>
       )}
     </main>
-  )
-}
+  );
+};

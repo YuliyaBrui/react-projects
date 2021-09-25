@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Article } from '../types';
+import './page-details.css';
+import { Rootstate } from '../redux/reducers';
+import { fetchDetails } from '../redux/actions/details';
 
-import { Article } from '../types'
-import '../../assets/styles/page-details.css'
-import { useTypeSelector } from '../redux/hooks/useTypeSelector'
-import { useAction } from '../redux/hooks/useAction'
-import { useParams } from 'react-router-dom'
 type Params = {
   qInTitle: string
 }
 export const DetailsArticle: React.FC<Article> = () => {
-  const { qInTitle } = useParams<Params>()
-  const state = useTypeSelector((state) => state.details)
-  console.log(state.details)
-  const { fetchDetails } = useAction()
+  const { qInTitle } = useParams<Params>();
+  const details = useSelector((state:Rootstate) => state.details);
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchDetails(qInTitle)
-  }, [])
+    dispatch(fetchDetails(qInTitle));
+  }, []);
   return (
     <main>
       <div className="article-details">
@@ -23,7 +23,7 @@ export const DetailsArticle: React.FC<Article> = () => {
 
         <p className="wrapper">
           <span className="key-word">Title:</span>
-          <span>{state.details.title}</span>
+          <span>{details.details.title}</span>
         </p>
         <section className="wrapper">
           <span className="key-word">Image:</span>
@@ -32,43 +32,43 @@ export const DetailsArticle: React.FC<Article> = () => {
               <div
                 className="card__img"
                 style={
-                  state.details.urlToImage
-                    ? { backgroundImage: `url(${state.details.urlToImage})` }
+                  details.details.urlToImage
+                    ? { backgroundImage: `url(${details.details.urlToImage})` }
                     : {
-                        backgroundImage: 'url(../../img/unknown_image.jpg)',
-                      }
+                      backgroundImage: 'url(../../img/unknown_image.jpg)',
+                    }
                 }
               />
             </div>
-            <a className="link" href={state.details.urlToImage}>
-              {state.details.urlToImage}
+            <a className="link" href={details.details.urlToImage}>
+              {details.details.urlToImage}
             </a>
           </div>
         </section>
         <p className="wrapper">
           <span className="key-word">Published at:</span>
-          <span>{state.details.publishedAt.split('T')[0]}</span>
+          <span>{details.details.publishedAt.split('T')[0]}</span>
         </p>
         <p className="wrapper">
           <span className="key-word">Author:</span>
-          <span>{state.details.author}</span>
+          <span>{details.details.author}</span>
         </p>
         <div className="wrapper">
           <span className="key-word">Description:</span>
-          <p>{state.details.description}</p>
+          <p>{details.details.description}</p>
         </div>
 
         <div className="wrapper">
           <span className="key-word">Content:</span>
-          <p>{state.details.content}</p>
+          <p>{details.details.content}</p>
         </div>
         <p className="wrapper">
           <span className="key-word">Link to article:</span>
-          <a className="link" href={state.details.url}>
-            {state.details.url}
+          <a className="link" href={details.details.url}>
+            {details.details.url}
           </a>
         </p>
       </div>
     </main>
-  )
-}
+  );
+};

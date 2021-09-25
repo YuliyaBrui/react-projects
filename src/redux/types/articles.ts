@@ -1,4 +1,4 @@
-import { Article } from '../../types'
+import { Article } from '../../types';
 
 export enum ArticlesActionTypes {
   FETCH_ARTICLES = 'FETCH_ARTICLES',

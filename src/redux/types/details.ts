@@ -1,4 +1,5 @@
-import { Article } from '../../types'
+import { Article } from '../../types';
+
 export interface DetailsState {
   details: Article
   loading: boolean
