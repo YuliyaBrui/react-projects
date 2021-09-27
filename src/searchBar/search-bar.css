@@ -1,0 +1,135 @@
+.form-wrapper {
+  margin: 0 auto;
+  width: 85vw;
+  height: 100vh;
+}
+.search-container {
+  margin: 0 auto;
+  width: 85vw;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: rgb(23, 69, 124);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 69, 124, 1) 0%,
+    rgba(7, 108, 120, 1) 100%
+  );
+}
+input {
+  outline: none;
+}
+.wrapper_input__text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  width: 50vw;
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+#input__text {
+  width: 90%;
+  margin-right: 15px;
+  border: none;
+}
+.button_submit {
+  transition: all 0.5s;
+  width: 80px;
+  height: 30px;
+  margin-left: 10px;
+  border: 1px transparent;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: 'Oswald', sans-serif;
+  background-color: #b4a486;
+  cursor: pointer;
+}
+.button_submit:hover {
+  color: white;
+  box-shadow: 5px 5px 2px 2px rgba(228, 228, 230, 0.2),
+    2px 0px 0px 2px rgba(228, 228, 230, 0.3);
+}
+.search-attribute {
+  width: 85vw;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container-radios,
+.container-data {
+  width: 45%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+label {
+  font-size: 18px;
+  font-family: 'Oswald', sans-serif;
+}
+.input__date {
+  margin-left: 10px;
+  color: rgb(165, 32, 32);
+}
+.loader {
+  margin: 0 auto;
+  width: 85vw;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input__radio {
+  visibility: hidden;
+  margin: 5px;
+}
+.input__radio:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 15px;
+  position: relative;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+  background-color: inherit;
+
+  border: 2px solid #d1d3d1;
+}
+
+.input__radio:checked:after {
+  background-color: rgb(165, 32, 32);
+  border: 2px solid rgb(165, 32, 32);
+}
+@media (max-width: 920px) {
+  .search-attribute {
+    flex-direction: column;
+    align-items: left;
+  }
+  .container-radios,
+  .container-data {
+    width: 90%;
+  }
+}
+@media (max-width: 490px) {
+  .search-attribute label {
+    font-size: 16px;
+  }
+  .input__date {
+    width: 60%;
+  }
+  .container-radios {
+    margin: 10px 0;
+  }
+  .container-radios label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
